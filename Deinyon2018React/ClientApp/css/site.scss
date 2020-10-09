@@ -1,0 +1,160 @@
+﻿@import './Util.scss';
+@import './Particles.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
+
+@mixin linear-gradient-mixin($direction, $list) {
+    background: -webkit-linear-gradient($direction, $list);
+    background: -moz-linear-gradient($direction, $list);
+    background: -o-linear-gradient($direction, $list);
+    background: linear-gradient($direction, $list);
+}
+
+body {
+    $grid-size: 60px;
+
+    background-color: #252525;
+    background-position: 0 100vh;
+    background-size:
+        $grid-size $grid-size,
+        $grid-size $grid-size,
+        $grid-size*0.2 $grid-size*0.2,
+        $grid-size*0.2 $grid-size*0.2;
+    background-image:
+        linear-gradient(#353535 2px, transparent 2px),
+        linear-gradient(90deg, #353535 2px, transparent 2px),
+        linear-gradient(#333 1px, transparent 1px),
+        linear-gradient(90deg, #333 1px, transparent 1px);
+
+    padding: 0;
+    margin: 0;
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 15px;
+}
+
+#head {
+    $v-padding: 7.5vh;
+    $heading-colour: #dec3ad;
+
+    height: 100vh;
+    max-height: 100vh;
+    color: #FFF;
+    /*KPOP PINK:*/ /*background: linear-gradient(-150deg,#00aeef,#b289ff,#e4bc84);*/
+    /*DARK KPOP*/ /*background: linear-gradient(-150deg, #2ebcff, #5a33a2, #f3a942);*/
+    /*NIGHT STARS*/ @include linear-gradient-mixin(-150deg, (rgba(61, 191, 252, 0.78) 0%, rgba(0, 9, 69, 0.81) 33%, rgba(81, 49, 139, 0.55) 62%, #ff9941cf 100%));
+    position: relative;
+    box-shadow: 0px 0px 100px 0px rgba(0,0,0,1.0);
+
+    @media screen and (max-width: 991px) {
+        max-height: 650px;
+    }
+
+    #headContent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        #tagline {
+            margin: 0 0 $v-padding 0; // Set top-left to middle of parent
+            width: 100%;
+
+            h1, h2, h3, p {
+                margin: 0;
+                text-align: center;
+                text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.85);
+                color: $heading-colour;
+            }
+
+            h1, h2, h3 {
+                font-family: 'Lobster', cursive;
+                font-weight: normal;
+
+                a {
+                    color: inherit;
+                    text-decoration: inherit;
+                }
+            }
+
+            h1 {
+                font-size: 60px;
+                margin-bottom: 0.1em;
+            }
+
+            p {
+                font-family: 'Courier New', Courier, monospace;
+            }
+
+            hr {
+                margin: $v-padding 42% $v-padding 42%;
+                border: 1px solid $heading-colour;
+                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.85);
+            }
+
+            #avatar {
+                margin-top: $v-padding;
+                width: 100%;
+                text-align: center;
+
+                img {
+                    width: 250px;
+                    height: 250px;
+                    border-radius: 50%;
+                    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.65);
+                    transition: box-shadow 0.5s cubic-bezier(.14,.52,.07,1.33);
+                }
+
+                img:hover {
+                    box-shadow: 0 0 40px adjust-color($heading-colour, $saturation: 90.0, $alpha: 0.75);
+                }
+            }
+
+            .spacer {
+                height: 20vh;
+            }
+        }
+
+        #body {
+            width: 100%;
+            margin-top: $v-padding;
+            margin-bottom: $v-padding;
+        }
+
+        .bodyPage {
+            padding: 4em;
+            margin-bottom: 25px;
+            background: #FFF;
+            color: #999;
+            border-radius: 10px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+
+            h1 {
+                font-family: 'Lobster', cursive;
+                font-size: 2em;
+                color: #999;
+            }
+
+            hr {
+                border-top: 3px solid #eee;
+            }
+        }
+
+        #fileRepo.bodyPage {
+            min-height: 90vh;
+        }
+
+        #footer {
+            margin: 0;
+
+            p {
+                margin: 0;
+                position: relative;
+                bottom: 3vh;
+                color: #BBB;
+                text-align: center;
+            }
+        }
+    }
+}
