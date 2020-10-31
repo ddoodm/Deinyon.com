@@ -81,7 +81,9 @@ export class RepoPage extends React.Component<RepoPageProps, RepoPageState> {
             <h2>Index of {this.state.path}</h2>
             <br />
             <div>
-                <Link to={`/repo/${this.state.path}/../`}>... Back</Link>
+                {this.state.path !== "/" &&
+                    <Link to={`/repo/${this.state.path}/../`}>... Back</Link>
+                }
                 <p>Directories</p>
                 <ul>
                     {this.state.listing.directories.map(dir =>
@@ -111,8 +113,11 @@ export class RepoPage extends React.Component<RepoPageProps, RepoPageState> {
     }
 
     componentDidUpdate(prevProps: RepoPageProps, prevState: RepoPageState) {
-        const path = Path.normalize(
-            "./" + this.pathFromRoute);
+        let path = Path.normalize("./" + this.pathFromRoute);
+
+        if (path === ".") {
+            path = "/";
+        }
 
         // If the path is different, re-load directory listing
         if (this.state.path !== path) {
