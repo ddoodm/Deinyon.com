@@ -4,12 +4,14 @@ import {
     Route,
     Link,
     Switch,
-    match,
     RouteComponentProps
 } from "react-router-dom";
 
 import * as ParsePath from "path-parse";
 import * as Path from "path";
+
+import { DirectoryItem } from './DirectoryItem';
+import { FileItem } from './FileItem';
 
 interface FileRepoState {
     path: string;
@@ -21,21 +23,17 @@ interface FileRepoProps {
 }
 
 interface RepoListing {
-    directories: RepoDirectory[];
-    files: RepoFile[];
+    directories: Directory[];
+    files: File[];
 }
 
-interface RepoItem {
+interface Item {
     name: string;
     path: string;
 }
-
-interface RepoDirectory extends RepoItem {
-
+interface Directory extends Item {
 }
-
-interface RepoFile extends RepoItem {
-
+interface File extends Item {
 }
 
 // https://stackoverflow.com/a/48138690/2503269
@@ -85,19 +83,13 @@ export class RepoPage extends React.Component<RepoPageProps, RepoPageState> {
                     <Link to={`/repo/${this.state.path}/../`}>... Back</Link>
                 }
                 <p>Directories</p>
-                <ul>
-                    {this.state.listing.directories.map(dir =>
-                        <li>
-                            <Link to={`/repo/${dir.path}`}>{dir.name}</Link>
-                        </li>
-                    )}
-                </ul>
+                {this.state.listing.directories.map(dir =>
+                    <DirectoryItem name={dir.name} path={dir.path} />
+                )}
                 <p>Files</p>
-                <ul>
-                    {this.state.listing.files.map(file =>
-                        <li>{file.name}</li>
-                    )}
-                </ul>
+                {this.state.listing.files.map(file =>
+                    <FileItem name={file.name} path={file.path} />
+                )}
             </div>
         </div>
     }
